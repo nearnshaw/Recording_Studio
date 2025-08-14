@@ -160,16 +160,16 @@
               "y": 0,
               "z": 14.25
             },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
             "rotation": {
               "x": 0,
               "y": 1,
               "z": 0,
               "w": 6.123234262925839e-17
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "parent": 0
           }
@@ -244,16 +244,16 @@
               "y": 0,
               "z": 14.25
             },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
             "rotation": {
               "x": 0,
               "y": 1,
               "z": 0,
               "w": 6.123234262925839e-17
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "parent": 0
           }
@@ -643,16 +643,16 @@
               "y": 0.25,
               "z": 2.5
             },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
             "rotation": {
               "x": 0,
               "y": 0,
               "z": 0,
               "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "parent": 0
           }
@@ -790,16 +790,16 @@
               "y": 0,
               "z": 8
             },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
             "rotation": {
               "x": 0,
               "y": 0.9659258127212524,
               "z": 0,
               "w": -0.258819043636322
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
             },
             "parent": 0
           }
@@ -853,16 +853,16 @@
               "y": 7.130000114440918,
               "z": 4.880000114440918
             },
+            "scale": {
+              "x": 3,
+              "y": 0.20000000298023224,
+              "z": 1
+            },
             "rotation": {
               "x": 0.3826834261417389,
               "y": 0,
               "z": 0,
               "w": 0.9238795042037964
-            },
-            "scale": {
-              "x": 3,
-              "y": 0.20000000298023224,
-              "z": 1
             },
             "parent": 0
           }
@@ -874,39 +874,18 @@
               "y": 1.7430771589279175,
               "z": 0.003998796455562115
             },
+            "scale": {
+              "x": 0.333333283662796,
+              "y": 5,
+              "z": 0.9999998807907104
+            },
             "rotation": {
               "x": -3.2617679728744566e-16,
               "y": 1,
               "z": 6.164056287616404e-8,
               "w": 7.216301164599952e-17
             },
-            "scale": {
-              "x": 0.333333283662796,
-              "y": 5,
-              "z": 0.9999998807907104
-            },
             "parent": 548
-          }
-        },
-        "550": {
-          "json": {
-            "position": {
-              "x": 15.0600004196167,
-              "y": 2.6766231060028076,
-              "z": 8.238975524902344
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0.7071067690849304,
-              "z": 0,
-              "w": 0.7071067690849304
-            },
-            "scale": {
-              "x": 3.200000047683716,
-              "y": 2.799999952316284,
-              "z": 1
-            },
-            "parent": 0
           }
         },
         "551": {
@@ -915,6 +894,27 @@
               "x": 13,
               "y": 0,
               "z": 14
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "parent": 0
+          }
+        },
+        "552": {
+          "json": {
+            "position": {
+              "x": 10.25,
+              "y": 0,
+              "z": 8.75
             },
             "rotation": {
               "x": 0,
@@ -1205,11 +1205,6 @@
             "states": []
           }
         },
-        "550": {
-          "json": {
-            "states": []
-          }
-        },
         "551": {
           "json": {
             "states": [
@@ -1222,6 +1217,11 @@
                 "shouldReset": false
               }
             ]
+          }
+        },
+        "552": {
+          "json": {
+            "states": []
           }
         }
       }
@@ -1444,6 +1444,13 @@
             "visibleMeshesCollisionMask": 0,
             "invisibleMeshesCollisionMask": 3
           }
+        },
+        "552": {
+          "json": {
+            "src": "assets/asset-packs/iron_sword/Sword_01/Sword_01.glb",
+            "visibleMeshesCollisionMask": 0,
+            "invisibleMeshesCollisionMask": 0
+          }
         }
       }
     },
@@ -1472,111 +1479,6 @@
               }
             }
           }
-        },
-        "550": {
-          "json": {
-            "material": {
-              "$case": "pbr",
-              "pbr": {
-                "texture": {
-                  "tex": {
-                    "$case": "texture",
-                    "texture": {
-                      "src": "https://imgur.com/a/miMdXd1",
-                      "wrapMode": 0,
-                      "filterMode": 0,
-                      "offset": {
-                        "x": 0,
-                        "y": 0
-                      },
-                      "tiling": {
-                        "x": 1,
-                        "y": 1
-                      }
-                    }
-                  }
-                },
-                "alphaTest": 0.5,
-                "castShadows": true,
-                "alphaTexture": {
-                  "tex": {
-                    "$case": "texture",
-                    "texture": {
-                      "src": "",
-                      "wrapMode": 0,
-                      "filterMode": 0,
-                      "offset": {
-                        "x": 0,
-                        "y": 0
-                      },
-                      "tiling": {
-                        "x": 1,
-                        "y": 1
-                      }
-                    }
-                  }
-                },
-                "emissiveTexture": {
-                  "tex": {
-                    "$case": "texture",
-                    "texture": {
-                      "src": "",
-                      "wrapMode": 0,
-                      "filterMode": 0,
-                      "offset": {
-                        "x": 0,
-                        "y": 0
-                      },
-                      "tiling": {
-                        "x": 1,
-                        "y": 1
-                      }
-                    }
-                  }
-                },
-                "bumpTexture": {
-                  "tex": {
-                    "$case": "texture",
-                    "texture": {
-                      "src": "",
-                      "wrapMode": 0,
-                      "filterMode": 0,
-                      "offset": {
-                        "x": 0,
-                        "y": 0
-                      },
-                      "tiling": {
-                        "x": 1,
-                        "y": 1
-                      }
-                    }
-                  }
-                },
-                "albedoColor": {
-                  "r": 1,
-                  "g": 1,
-                  "b": 1,
-                  "a": 1
-                },
-                "emissiveColor": {
-                  "r": 1,
-                  "g": 1,
-                  "b": 1
-                },
-                "reflectivityColor": {
-                  "r": 1,
-                  "g": 1,
-                  "b": 1
-                },
-                "transparencyMode": 4,
-                "metallic": 0.5,
-                "roughness": 0.5,
-                "specularIntensity": 1,
-                "emissiveIntensity": 0,
-                "directIntensity": 1
-              }
-            }
-          }
         }
       }
     },
@@ -1597,15 +1499,6 @@
               "plane": {}
             }
           }
-        },
-        "550": {
-          "json": {
-            "collisionMask": 1,
-            "mesh": {
-              "$case": "plane",
-              "plane": {}
-            }
-          }
         }
       }
     },
@@ -1619,16 +1512,6 @@
       },
       "data": {
         "536": {
-          "json": {
-            "mesh": {
-              "$case": "plane",
-              "plane": {
-                "uvs": []
-              }
-            }
-          }
-        },
-        "550": {
           "json": {
             "mesh": {
               "$case": "plane",
@@ -1843,14 +1726,14 @@
             "value": "Banner_Text"
           }
         },
-        "550": {
-          "json": {
-            "value": "Image"
-          }
-        },
         "551": {
           "json": {
             "value": "dispenser"
+          }
+        },
+        "552": {
+          "json": {
+            "value": "Iron Sword"
           }
         }
       }
@@ -2095,9 +1978,9 @@
         "serializationType": "map"
       },
       "data": {
-        "551": {
+        "552": {
           "json": {
-            "gizmo": 1
+            "gizmo": 0
           }
         }
       }
@@ -2428,8 +2311,10 @@
       "data": {
         "0": {
           "json": {
-            "name": "Music Studio",
+            "name": "Recording Studio",
             "description": "Empty Scene Template",
+            "thumbnail": "assets/images/autogenerated-thumbnail.png",
+            "ageRating": "T",
             "categories": [],
             "author": "SDK",
             "tags": [],
@@ -2445,17 +2330,19 @@
                 }
               ]
             },
-            "skyboxConfig": {},
+            "skyboxConfig": {
+              "fixedTime": 70260
+            },
             "spawnPoints": [
               {
-                "name": "spawn1",
+                "name": "Spawn Point 1",
                 "default": true,
                 "position": {
                   "x": {
                     "$case": "range",
                     "value": [
-                      0,
-                      3
+                      6,
+                      9
                     ]
                   },
                   "y": {
@@ -2468,8 +2355,8 @@
                   "z": {
                     "$case": "range",
                     "value": [
-                      0,
-                      3
+                      6,
+                      9
                     ]
                   }
                 },
@@ -2561,8 +2448,8 @@
                   546,
                   547,
                   548,
-                  550,
-                  551
+                  551,
+                  552
                 ]
               },
               {
@@ -2739,11 +2626,11 @@
                 "children": []
               },
               {
-                "entity": 550,
+                "entity": 551,
                 "children": []
               },
               {
-                "entity": 551,
+                "entity": 552,
                 "children": []
               }
             ]
@@ -3379,6 +3266,18 @@
               }
             ]
           }
+        },
+        "552": {
+          "json": {
+            "id": 13,
+            "value": [
+              {
+                "name": "attach",
+                "type": "attach_to_player",
+                "jsonPayload": "{\"anchorPointId\":3}"
+              }
+            ]
+          }
         }
       }
     },
@@ -3402,7 +3301,7 @@
         "0": {
           "json": {
             "id": 0,
-            "value": 12
+            "value": 13
           }
         }
       }
@@ -3918,6 +3817,23 @@
                   {
                     "id": 11,
                     "name": "Show text"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "552": {
+          "json": {
+            "value": [
+              {
+                "type": "on_spawn",
+                "conditions": [],
+                "operation": "and",
+                "actions": [
+                  {
+                    "id": 13,
+                    "name": "attach"
                   }
                 ]
               }
@@ -4470,10 +4386,10 @@
         "549": {
           "json": {}
         },
-        "550": {
+        "551": {
           "json": {}
         },
-        "551": {
+        "552": {
           "json": {}
         }
       }

@@ -1,5 +1,9 @@
 
-const SPREADSHEET_URL: string = 'https://docs.google.com/spreadsheets/d/1pZsS3M-7Gjpir0R-LtMjh0tVcf-ron73fP3h93GTqpU/gviz/tq?tqx=out:json&gid=1429457611'
+const SPREADSHEET_URL: string = 'https://docs.google.com/spreadsheets/d/1s0cvKu7i-VsHh5_RNVC7dV3HXT7WHAJDCxXqHK1WiFU'
+
+const EXTRA_PARAMS: string = '/gviz/tq?tqx=out:json&gid=1429457611&headers=1'
+
+//'https://docs.google.com/spreadsheets/d/1pZsS3M-7Gjpir0R-LtMjh0tVcf-ron73fP3h93GTqpU/gviz/tq?tqx=out:json&gid=1429457611'
 //'https://docs.google.com/spreadsheets/d/1dFvdn0OuTKa8slpCruf-EiNp-LJpG3z6kejsMeYZDDI/gviz/tq?tqx=out:json&gid=0&headers=1'
 // //'https://docs.google.com/spreadsheets/d/1pZsS3M-7Gjpir0R-LtMjh0tVcf-ron73fP3h93GTqpU/gviz/tq?tqx=out:json&gid=1429457611'
 //gid=1429457611 refers to the target tab of the g-doc
@@ -8,7 +12,7 @@ export var jsonData: any[] = []
 
 export async function getSpreadsheetData() {
 
-  const url = SPREADSHEET_URL
+  const url = SPREADSHEET_URL + EXTRA_PARAMS
 
   const txt = await fetch(url).then((res) => res.text())
 
@@ -36,6 +40,8 @@ export async function getSpreadsheetData() {
       jsonData.push(rowData)
       console.log("rowData: ", JSON.stringify(rowData))
     }
-    //console.log("Downloaded schedule data : ", jsonData)
+    console.log("Downloaded schedule data : ", jsonData)
   }
+
+  return jsonData
 }

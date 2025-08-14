@@ -1,0 +1,48 @@
+// Auto-generated entity names from the scene
+
+
+/**
+ * Object containing all entity names in the scene for autocomplete support.
+ */
+export enum EntityNames {
+  Admin_Tools = "Admin Tools",
+  Banner = "Banner",
+  Banner_Text = "Banner_Text",
+  Beanbag___Navy = "Beanbag - Navy",
+  Ground = "Ground",
+  Image = "Image",
+  Low_poly_The_inside__0814181006_texture_glb = "Low_poly_The_inside__0814181006_texture.glb",
+  Low_poly_The_inside__0814181140_texture_glb = "Low_poly_The_inside__0814181140_texture.glb",
+  Low_poly_The_inside__0814183304_texture_glb = "Low_poly_The_inside__0814183304_texture.glb",
+  Roof___Grey_4Edges = "Roof - Grey 4Edges",
+  Rug = "Rug",
+  Sit_Spot = "Sit Spot",
+  Sit_Spot_1 = "Sit Spot 1",
+  Sit_Spot_1_2 = "Sit Spot 1_2",
+  Sit_Spot_2 = "Sit Spot 2",
+  Sit_Spot_2_2 = "Sit Spot 2_2",
+  Sit_Spot_2_1 = "Sit Spot_2",
+  Small_Couch = "Small Couch",
+  Small_Couch_2 = "Small Couch_2",
+  Tall_Stool_D = "Tall Stool D",
+  Text = "Text",
+  Tile_1 = "Tile 1",
+  Video_Screen = "Video Screen",
+  Wall___HorizontalBoard = "Wall - HorizontalBoard",
+  Wall___HorizontalBoard_2 = "Wall - HorizontalBoard_2",
+  Wall___HorizontalBoard_2_3 = "Wall - HorizontalBoard_2_3",
+  Wall___HorizontalBoard_3 = "Wall - HorizontalBoard_3",
+  Wall___HorizontalBoard_3_4 = "Wall - HorizontalBoard_3_4",
+  Wall___HorizontalBoard_3_5 = "Wall - HorizontalBoard_3_5",
+  Wall___PlainDarkGrey = "Wall - PlainDarkGrey",
+  Wall___PlainDarkGrey_2 = "Wall - PlainDarkGrey_2",
+  Wall___PlainDarkGrey_2_3 = "Wall - PlainDarkGrey_2_3",
+  Wall___PlainDarkGrey_2_3_4 = "Wall - PlainDarkGrey_2_3_4",
+  Wall___WoodenBoard = "Wall - WoodenBoard",
+  Wall___WoodenBoard_2 = "Wall - WoodenBoard_2",
+  Wall___WoodenBoard_2_3 = "Wall - WoodenBoard_2_3",
+  Wall___WoodenBoard_3 = "Wall - WoodenBoard_3",
+  Wall___WoodenBoard_3_4 = "Wall - WoodenBoard_3_4",
+  Wall___WoodenBoard_4 = "Wall - WoodenBoard_4",
+  dispenser = "dispenser",
+} 

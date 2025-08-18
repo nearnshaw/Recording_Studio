@@ -1,40 +1,114 @@
 import { } from '@dcl/sdk/math'
-import { AvatarShape, AvatarModifierArea, engine, Transform, TextShape} from '@dcl/sdk/ecs'
-import { triggerEmote } from '~system/RestrictedActions'
-import { getSpreadsheetData } from './scheduler'
+import { AvatarShape, AvatarModifierArea, engine, Transform, TextShape, Entity, VideoPlayer, pointerEventsSystem, InputAction, Material} from '@dcl/sdk/ecs'
+import { openExternalUrl, triggerEmote } from '~system/RestrictedActions'
+import { getSpreadsheetData, jsonData } from './scheduler'
+import { syncEntity } from '@dcl/sdk/network'
+import { getTriggerEvents, getActionEvents } from '@dcl/asset-packs/dist/events'
 
-
-export async function updateBannerText(){
+export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
   const jsonData = await getSpreadsheetData()
   console.log(jsonData)
   if(jsonData){
     
-    const name = jsonData[0].NowPlaying
+    // Update Banner Text
+    const name = jsonData[spreadsheetIndex].NowPlaying
     const bannerText = engine.getEntityOrNullByName("Banner_Text")
     if (bannerText) {
       console.log("NAME ON SPREADSHEET: ", name)
-      TextShape.getMutable(bannerText).text = name
+      TextShape.getMutable(bannerText).text = "Now playing: " + name
+    }
+    const dispenser = engine.getEntityOrNullByName("dispenser")
+
+    // Update wearabe on dispenser
+    if (wearable && dispenser) {
+
+      // swap wearabe
+      AvatarShape.getMutable(wearable).wearables = [jsonData[spreadsheetIndex].WearableURN?jsonData[spreadsheetIndex].WearableURN : [] ]
+
+      // offset wearable
+      Transform.createOrReplace(wearable, {
+        position: { x: 0, y: jsonData[spreadsheetIndex].WearableOffset? jsonData[spreadsheetIndex].WearableOffset : 0, z: 0 },
+        scale: { x: jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5, y: jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5, z: jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5 },
+        parent: dispenser,
+      })
+      
+      // link
+      pointerEventsSystem.onPointerDown(
+          {
+            entity: dispenser,
+            opts: { button: InputAction.IA_PRIMARY, hoverText: 'Buy Wearable' },
+          },
+          function () {
+            openExternalUrl({url: jsonData[spreadsheetIndex].BuyURL?jsonData[spreadsheetIndex].BuyURL : ""})
+          }
+      )   
+    }
+
+    // Change video URL
+    const videoScreen = engine.getEntityOrNullByName("Video Screen")
+    if (videoScreen) {
+
+      VideoPlayer.createOrReplace(videoScreen, {
+        src: jsonData[spreadsheetIndex].VideoURL?jsonData[spreadsheetIndex].VideoURL : "",
+        playing: true
+      })
+      Material.setBasicMaterial(videoScreen, {
+        texture: {
+          tex: {
+            $case: "videoTexture",
+            videoTexture: {
+              videoPlayerEntity: videoScreen
+            }
+          }
+        }
+      })
+
+      
     }
 
   }
 
 }
 
+let wearable: Entity | null = null
+let currentIndex: number = 0
 
 export function main() {
 
-  updateBannerText()
-  
+  // fetch data from spreadsheet and update scene
+  updateFromSpreadsheet(0)
 
+  // listen for switch artist button
+  const switchArtist = engine.getEntityOrNullByName("Switch Artist")
+  if (switchArtist) {
+    const actions = getActionEvents(switchArtist)
+		actions.on('Next', () => {
+      currentIndex++
+      if(currentIndex >= jsonData.length){
+        currentIndex = 0
+      }
+			updateFromSpreadsheet(currentIndex)
+		})
+
+    actions.on('Previous', () => {
+      currentIndex--
+      if(currentIndex < 0){
+        currentIndex = jsonData.length - 1
+      }
+			updateFromSpreadsheet(currentIndex)
+		})
+  }
+
+  // listen for dispenser
   const dispenser = engine.getEntityOrNullByName("dispenser")
   if (dispenser) {
 
 
-    const wearable = engine.addEntity()
+    wearable = engine.addEntity()
 
     Transform.create(wearable, {
-      position: { x: 0, y: 1, z: 0 },
-      scale: { x: 2, y: 2, z: 2 },
+      position: { x: 0, y: 0, z: 0 },
+      scale: { x: 1.5, y: 1.5, z: 1.5 },
       parent: dispenser,
     })
 
@@ -42,25 +116,12 @@ export function main() {
       id: '',
       emotes: [],
       wearables: [ 'urn:decentraland:matic:collections-v2:0x90e5cb2d673699be8f28d339c818a0b60144c494:0'],
-      expressionTriggerId: 'clap',
+      expressionTriggerId: '',
       expressionTriggerTimestamp:0,
       showOnlyWearables: true,
     })
 
-    // Create clap emote system that triggers every 2 seconds
-    let clapTimer = 0
-    engine.addSystem((dt: number) => {
-      clapTimer += dt
-      
-      if (clapTimer >= 2) { // 2 seconds
-        // Trigger the clap emote
-        AvatarShape.getMutable(wearable).expressionTriggerTimestamp =+ 1 
-        
-        clapTimer = 0 // Reset timer
-      }
-    })
-
-   
+    syncEntity(wearable, [Transform.componentId, AvatarShape.componentId])  
   }
 
 

@@ -601,16 +601,16 @@
               "y": 4.75,
               "z": 0.4000000059604645
             },
+            "rotation": {
+              "x": 0,
+              "y": 1,
+              "z": 0,
+              "w": 6.123234262925839e-17
+            },
             "scale": {
               "x": 10,
               "y": 5.599999904632568,
               "z": 5.599999904632568
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
             },
             "parent": 0
           }
@@ -851,7 +851,7 @@
             "position": {
               "x": 14,
               "y": 0,
-              "z": 11.75
+              "z": 12
             },
             "rotation": {
               "x": 0,
@@ -1397,7 +1397,35 @@
                   "tex": {
                     "$case": "videoTexture",
                     "videoTexture": {
-                      "videoPlayerEntity": 536
+                      "videoPlayerEntity": 536,
+                      "wrapMode": 0,
+                      "filterMode": 0
+                    }
+                  }
+                },
+                "alphaTest": 0.5,
+                "castShadows": true,
+                "diffuseColor": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                },
+                "alphaTexture": {
+                  "tex": {
+                    "$case": "texture",
+                    "texture": {
+                      "src": "",
+                      "wrapMode": 0,
+                      "filterMode": 0,
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "tiling": {
+                        "x": 1,
+                        "y": 1
+                      }
                     }
                   }
                 }
@@ -1850,7 +1878,9 @@
         "536": {
           "json": {
             "src": "https://player.vimeo.com/external/552481870.m3u8?s=c312c8533f97e808fccc92b0510b085c8122a875",
-            "playing": true
+            "playing": true,
+            "volume": 1,
+            "loop": true
           }
         }
       }
@@ -1889,7 +1919,7 @@
         "serializationType": "map"
       },
       "data": {
-        "538": {
+        "536": {
           "json": {
             "gizmo": 0
           }

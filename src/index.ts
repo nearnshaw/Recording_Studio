@@ -1,4 +1,4 @@
-import { } from '@dcl/sdk/math'
+import { Quaternion } from '@dcl/sdk/math'
 import { AvatarShape, AvatarModifierArea, engine, Transform, TextShape, Entity, VideoPlayer, pointerEventsSystem, InputAction, Material} from '@dcl/sdk/ecs'
 import { openExternalUrl, triggerEmote } from '~system/RestrictedActions'
 import { getSpreadsheetData, jsonData } from './scheduler'
@@ -26,12 +26,14 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
       AvatarShape.getMutable(wearable).wearables = [jsonData[spreadsheetIndex].WearableURN?jsonData[spreadsheetIndex].WearableURN : [] ]
 
       // offset wearable
-      Transform.createOrReplace(wearable, {
-        position: { x: 0, y: jsonData[spreadsheetIndex].WearableOffset? jsonData[spreadsheetIndex].WearableOffset : 0, z: 0 },
-        scale: { x: jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5, y: jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5, z: jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5 },
-        parent: dispenser,
-      })
-      
+      const wearableTransform = Transform.getMutable(wearable)
+
+      wearableTransform.position.y = jsonData[spreadsheetIndex].WearableOffset? jsonData[spreadsheetIndex].WearableOffset : 0
+      wearableTransform.scale.x = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
+      wearableTransform.scale.y = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
+      wearableTransform.scale.z = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
+
+  
       // link
       pointerEventsSystem.onPointerDown(
           {
@@ -107,9 +109,9 @@ export function main() {
     wearable = engine.addEntity()
 
     Transform.create(wearable, {
-      position: { x: 0, y: 0, z: 0 },
+      position: { x: 14, y: 1, z: 12 },
       scale: { x: 1.5, y: 1.5, z: 1.5 },
-      parent: dispenser,
+      rotation: Quaternion.fromEulerDegrees(0, 270, 0)
     })
 
     AvatarShape.create(wearable, {

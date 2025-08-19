@@ -10,6 +10,7 @@ export enum EntityNames {
   Banner_Text = "Banner_Text",
   Beanbag___Navy = "Beanbag - Navy",
   Ground = "Ground",
+  Image = "Image",
   Low_poly_The_inside__0814181006_texture_glb = "Low_poly_The_inside__0814181006_texture.glb",
   Low_poly_The_inside__0814181140_texture_glb = "Low_poly_The_inside__0814181140_texture.glb",
   Low_poly_The_inside__0814183304_texture_glb = "Low_poly_The_inside__0814183304_texture.glb",

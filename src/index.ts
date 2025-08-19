@@ -20,7 +20,7 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
     const dispenser = engine.getEntityOrNullByName("dispenser")
 
     // Update wearabe on dispenser
-    if (wearable && dispenser) {
+    if (wearableParent && wearable && dispenser) {
 
       // swap wearabe
       AvatarShape.createOrReplace(wearable, {
@@ -31,14 +31,19 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
         expressionTriggerTimestamp:0,
         showOnlyWearables: true,
       })
-
-      // offset wearable
-      const wearableTransform = Transform.getMutable(wearable)
-      wearableTransform.position.y = jsonData[spreadsheetIndex].WearableOffset? jsonData[spreadsheetIndex].WearableOffset : 0
-      wearableTransform.scale.x = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
-      wearableTransform.scale.y = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
-      wearableTransform.scale.z = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
+    
       
+      // offset wearable
+      const wearableParentTransform = Transform.getMutable(wearableParent)
+
+      wearableParentTransform.scale.x = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
+      wearableParentTransform.scale.y = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
+      wearableParentTransform.scale.z = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
+
+      wearableParentTransform.position.y = jsonData[spreadsheetIndex].WearableOffset? jsonData[spreadsheetIndex].WearableOffset : 0
+
+      console.log("WEARABLE OFFSET: ", jsonData[spreadsheetIndex].WearableOffset, " ACTUAL: ", wearableParentTransform.position.y)
+   
       // link
       pointerEventsSystem.onPointerDown(
           {
@@ -70,6 +75,7 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
 }
 
 let wearable: Entity | null = null
+let wearableParent: Entity | null = null
 let currentIndex: number = 0
 
 export function main() {
@@ -102,14 +108,18 @@ export function main() {
   const dispenser = engine.getEntityOrNullByName("dispenser")
   if (dispenser) {
 
+    wearableParent = engine.addEntity()
+    Transform.create(wearableParent, {
+      position: { x: 0, y: 0, z: 0 },
+      scale: { x: 1.5, y: 1.5, z: 1.5 },
+      parent: dispenser,
+    })
+
 
     wearable = engine.addEntity()
 
     Transform.create(wearable, {
-      position: { x: 14, y: 0, z: 12 },
-      scale: { x: 1.5, y: 1.5, z: 1.5 },
-      rotation: Quaternion.fromEulerDegrees(0, 270, 0),
-      //parent: dispenser,
+      parent: wearableParent,
     })
 
     AvatarShape.create(wearable, {
@@ -121,7 +131,8 @@ export function main() {
       showOnlyWearables: true,
     })
 
-    syncEntity(wearable, [Transform.componentId, AvatarShape.componentId])  
+    syncEntity(wearable, [Transform.componentId, AvatarShape.componentId], 1)  
+    syncEntity(wearableParent, [Transform.componentId], 2)
   }
 
 

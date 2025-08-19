@@ -20,30 +20,11 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
     const dispenser = engine.getEntityOrNullByName("dispenser")
 
     // Update wearabe on dispenser
-    if (wearableParent && wearable && dispenser) {
+    if (wearable && dispenser) {
 
       // swap wearabe
-      AvatarShape.createOrReplace(wearable, {
-        id: '',
-        emotes: [],
-        wearables: [ jsonData[spreadsheetIndex].WearableURN?jsonData[spreadsheetIndex].WearableURN : []],
-        expressionTriggerId: 'idle',
-        expressionTriggerTimestamp:0,
-        showOnlyWearables: true,
-      })
-    
-      
-      // offset wearable
-      const wearableParentTransform = Transform.getMutable(wearableParent)
+      createWearable(jsonData[spreadsheetIndex].WearableURN?jsonData[spreadsheetIndex].WearableURN : "", jsonData[spreadsheetIndex].WearableOffset?jsonData[spreadsheetIndex].WearableOffset : 0, jsonData[spreadsheetIndex].WearableScaleMult?jsonData[spreadsheetIndex].WearableScaleMult : 1.5)
 
-      wearableParentTransform.scale.x = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
-      wearableParentTransform.scale.y = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
-      wearableParentTransform.scale.z = jsonData[spreadsheetIndex].WearableScaleMult? jsonData[spreadsheetIndex].WearableScaleMult : 1.5
-
-      wearableParentTransform.position.y = jsonData[spreadsheetIndex].WearableOffset? jsonData[spreadsheetIndex].WearableOffset : 0
-
-      console.log("WEARABLE OFFSET: ", jsonData[spreadsheetIndex].WearableOffset, " ACTUAL: ", wearableParentTransform.position.y)
-   
       // link
       pointerEventsSystem.onPointerDown(
           {
@@ -65,9 +46,7 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
         playing: true,
         loop: true,
       })
-      
-
-      
+ 
     }
 
   }
@@ -75,7 +54,6 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
 }
 
 let wearable: Entity | null = null
-let wearableParent: Entity | null = null
 let currentIndex: number = 0
 
 export function main() {
@@ -104,36 +82,39 @@ export function main() {
 		})
   }
 
-  // listen for dispenser
+  createWearable("urn:decentraland:matic:collections-v2:0x90e5cb2d673699be8f28d339c818a0b60144c494:0", 0, 1.5)
+
+}
+
+
+function createWearable(wearableURN: string, wearableOffset: number, wearableScaleMult: number){
+
   const dispenser = engine.getEntityOrNullByName("dispenser")
-  if (dispenser) {
-
-    wearableParent = engine.addEntity()
-    Transform.create(wearableParent, {
-      position: { x: 0, y: 0, z: 0 },
-      scale: { x: 1.5, y: 1.5, z: 1.5 },
-      parent: dispenser,
-    })
-
-
-    wearable = engine.addEntity()
-
-    Transform.create(wearable, {
-      parent: wearableParent,
-    })
-
-    AvatarShape.create(wearable, {
-      id: '',
-      emotes: [],
-      wearables: [ 'urn:decentraland:matic:collections-v2:0x90e5cb2d673699be8f28d339c818a0b60144c494:0'],
-      expressionTriggerId: '',
-      expressionTriggerTimestamp:0,
-      showOnlyWearables: true,
-    })
-
-    syncEntity(wearable, [Transform.componentId, AvatarShape.componentId], 1)  
-    syncEntity(wearableParent, [Transform.componentId], 2)
+  if(!dispenser){
+    return
   }
 
+  if(wearable){
+    engine.removeEntity(wearable)
+  }
+
+  wearable = engine.addEntity()
+
+  Transform.create(wearable, {
+    position: { x: 0, y: wearableOffset, z: 0 },
+    scale: { x: wearableScaleMult, y: wearableScaleMult, z: wearableScaleMult },
+    parent: dispenser,
+  })
+
+  AvatarShape.create(wearable, {
+    id: '',
+    emotes: [],
+    wearables: [ wearableURN ],
+    expressionTriggerId: '',
+    expressionTriggerTimestamp:0,
+    showOnlyWearables: true,
+  })
+
+  syncEntity(wearable, [Transform.componentId, AvatarShape.componentId], 1)  
 
 }

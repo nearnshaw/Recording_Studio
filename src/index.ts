@@ -4,6 +4,7 @@ import { openExternalUrl, triggerEmote } from '~system/RestrictedActions'
 import { getSpreadsheetData, jsonData } from './scheduler'
 import { syncEntity } from '@dcl/sdk/network'
 import { getTriggerEvents, getActionEvents } from '@dcl/asset-packs/dist/events'
+import { EntityNames } from '../assets/scene/entity-names'
 
 export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
   const jsonData = await getSpreadsheetData()
@@ -14,10 +15,30 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
     const name = jsonData[spreadsheetIndex].NowPlaying
     const bannerText = engine.getEntityOrNullByName("Banner_Text")
     if (bannerText) {
-      console.log("NAME ON SPREADSHEET: ", name)
+
       TextShape.getMutable(bannerText).text = "Now playing: " + name
     }
+ 
+
+    // Change video URL
+    const videoScreen = engine.getEntityOrNullByName(EntityNames.VideoScreen)
+    if (videoScreen) {
+
+      VideoPlayer.deleteFrom(videoScreen)
+
+      console.log("VIDEO URL: ", jsonData[spreadsheetIndex].VideoURL)
+
+      VideoPlayer.createOrReplace(videoScreen, {
+        src: jsonData[spreadsheetIndex].VideoURL?jsonData[spreadsheetIndex].VideoURL : "",
+        playing: true,
+        loop: true,
+      })
+ 
+    }
+
+
     const dispenser = engine.getEntityOrNullByName("dispenser")
+
 
     // Update wearabe on dispenser
     if (wearable && dispenser) {
@@ -37,19 +58,7 @@ export async function updateFromSpreadsheet(spreadsheetIndex: number = 0){
       )   
     }
 
-    // Change video URL
-    const videoScreen = engine.getEntityOrNullByName("Video Screen")
-    if (videoScreen) {
-
-      VideoPlayer.createOrReplace(videoScreen, {
-        src: jsonData[spreadsheetIndex].VideoURL?jsonData[spreadsheetIndex].VideoURL : "",
-        playing: true,
-        loop: true,
-      })
- 
-    }
-
-  }
+  } 
 
 }
 
